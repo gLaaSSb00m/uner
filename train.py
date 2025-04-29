@@ -84,7 +84,6 @@ def train_model(
     # 5. Begin training
     for epoch in range(1, epochs + 1):
         model.train()
-        epoch_loss = 0
         with tqdm(total=n_train, desc=f'Epoch {epoch}/{epochs}', unit='img') as pbar:
             for batch in train_loader:
                 images, true_masks = batch['image'], batch['mask']
@@ -119,7 +118,6 @@ def train_model(
 
                 pbar.update(images.shape[0])
                 global_step += 1
-                epoch_loss += loss.item()
                 experiment.log({
                     'train loss': loss.item(),
                     'step': global_step,
